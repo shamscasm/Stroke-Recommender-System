@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact</title><!--This is the name of the page-->
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+     
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background: #fff !important; }
+
+        .parent {
+             
+            margin: 1rem;
+            padding: 2rem 2rem;
+            text-align: center;
+            }
+        .child {
+            display: inline-block;
+            
+            padding: 1rem 1rem;
+            vertical-align: middle;
+            }
+          
+        
+          
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-sm navbar-light" style="background-color: #e3f2fd;"><!--This is the color of the navigation bar-->
+
+        <div class="container-fluid">
+
+            <a class="navbar-brand" href="{% url 'home' %}" class="ml-2">Recommender System</a><!--This button will take us to the Home page-->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="mynavbar">
+   
+            </div>
+        </div>
+
+        <span>
+            <button class="btn btn-outline-info my-2 my-sm-0" type="button"><a href="{% url 'landingPage'%}">upload </a></button>
+       
+            </span>
+             
+    </nav>
+    <center>
+        <br>
+    <u><h3>Patient Results- </h3></u> <br> <br>
+    
+    </center>
+    
+        <center> 
+        
+        {% if x == 0%}
+        <h5>You are <u>NOT at risk</u> for stroke</h5> 
+        {% elif x == 1%}
+        <h5>You are at <u>LOW risk</u> for stroke</h5> 
+        {% elif x == 2%}
+        <h5>You are at <u> MODERATE risk</u> for stroke</h5> 
+        {% else %}
+        <h5>You are at <u>HIGH risk</u> for stroke</h5> 
+        {% endif%}
+        
+        
+
+       
+    
+    <p> <h6> Your most at risk factors for stroke are {% for i in features %}{{ i }}, {% endfor %}.</h6> 
+          
+           
+           <p> The details are given on the graph below: </p>
+        </p></center> 
+
+    <div class='parent'>
+        <div class = 'child'>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="thead-light">
+                        <u><h5> Patient information</h5><br></u>
+                      
+                        <tr>
+                             
+                        <th scope="col">Risk Factors</th>
+                        <th scope="col">Value</th> 
+                      </tr>
+
+                     
+                    
+                    </thead>
+                    <tbody>
+                        <tr>
+                       
+                            <th scope="col">Patient ID</th>
+                            <th scope="col">{{pid}}</th>
+                             
+                          </tr>
+                      <tr>
+                       
+                        <td><p data-toggle="tooltip" title="Patient's Age in Years"> Age</p></td>
+                        <td>{{age}}</td>
+                         
+                      </tr>
+                      <tr>
+                         
+                        <td><p data-toggle="tooltip" title="Patient's Gender 0=male , 1=female ">Gender<p></td>
+                        <td>{{gender}}</td>
+                         
+                      </tr>
+                      <tr>
+                        
+                        <td><p data-toggle="tooltip" data-html="true" title=" 
+                          <br>0 -  No symptoms at all  
+                          <br>1 -  No significant disability despite symptoms; able to carry out all usual duties and activities 
+                          <br>3 - Moderate disability; requiring some help, but able to walk without assistance 
+                          <br>4 - Moderately severe disability; unable to walk without assistance and unable to attend to own bodily needs without assistance 
+                          <br>5 - Severe disability; bedridden, incontinent and requiring constant nursing care and attention 
+                          <br>6 Dead"> mRS
+                          </p></td>
+                        <td>{{mrs}}</td>
+                         
+                      </tr>
+
+                      <tr>
+                        
+                        <td><p data-toggle="tooltip" title="normal < 140">Systolic BP</p></td>
+                        <td>{{sys}}</td>
+                         
+                      </tr>
+
+                      <tr>
+                        
+                        <td><p data-toggle="tooltip" title="normal < 90">Diastolic BP</p></td>
+                        <td>{{dis}}</td>
+                         
+                      </tr>
+
+                      <tr>
+                         
+                        <td><p data-toggle="tooltip" data-html="true" title="  
+                          <br>1. fasting blood sugar level < 100 mg/dL (5.6 mmol/L) is normal.  
+                          <br>fasting blood sugar level from 100 to 125 mg/dL (5.6 to 6.9 mmol/L) is considered prediabetes.
+                          <br>126 mg/dL or higher on two separate tests, then diabetes can be diagnosed.   
+                          <br>Regardless of when last eaten, blood sugar level of 200 mg/dL (11.1mmol/L) — or higher suggests diabetes.
+                           ">
+                            Glucose
+                          </p></td>
+                        <td>{{glucose}}</td>
+                         
+                      </tr>
+
+
+                      <tr>
+                         
+                        <td><p data-toggle="tooltip" title="0= not smoking , 1 = smokes">Smoking</td>
+                        <td>{{smoking}}</td>
+                         
+                      </tr>
+
+                      <tr>
+                         
+                        <td><p data-toggle="tooltip" data-html="true" title="  
+                          <br> below 18.5 – underweight.
+                          <br> between 18.5 and 24.9 –  healthy weight range.
+                          <br> between 25 and 29.9 –overweight range. 
+                          <br> above 30 – obese range
+                          <br> ">
+                            BMI
+                          </p></td>
+                        <td>{{bmi}}</td>
+                         
+                      </tr>
+
+                      <tr>
+                         
+                        <td><p data-toggle="tooltip" data-html="true" title="  
+                          <br> Total Cholesterol normal less than 170mg/dL
+                          <br>Non-HDL cholesterol Less than 120mg/dL
+                          <br>LDL cholesterol Less than 100mg/dL 
+                          <br> HDL cholesterol More than 45mg/dL
+                          <br> ">
+                          Cholesterol
+                          </p></td>
+                        <td>{{chol}}</td>
+                         
+                      </tr>
+
+                      <tr>
+                         
+                        <td>  <p data-toggle="tooltip" title=" Subcategorized as arterial, venous, or neurologic ">TOS</p></td>
+                        <td>{{tos}}</td>
+                         
+                      </tr>  
+
+                    </tbody>
+                  </table>
+
+        </div>
+        
+    </div>
+
+       <div class='child'>
+        {% if chart %}
+        <img src = "data:image/png; base64 , {{chart|safe}}">
+        
+        {%endif %}
+
+       </div>
+
+       <br><br>
+       &nbsp;
+
+       <br><br>
+       &nbsp;
+
+       <u><h3> Group Explanation </h3></u>
+       {% load static %}
+       <div class='parent'>
+       <div class='child'> <h4>Group 0</h4><img src="{% static 'Figure_0.png' %}" alt="My image"> </div>
+       <div class='child'> <h4>Group 1</h4><img src="{% static 'Figure_1.png' %}" alt="My image"> </div>
+       <div class='child'> <h4>Group 2</h4><img src="{% static 'Figure_2.png' %}" alt="My image"> </div>
+       <div class='child'> <h4>Group 3</h4><img src="{% static 'Figure_3.png' %}" alt="My image"> </div>
+       </div >
+       
+<center> <br>
+
+<h6> View Results in PDF report </h6>
+<button class="btn btn-outline-info my-2 my-sm-0" type="button"><a href="{% url 'view_pdf'%}">Generate PDF</a></button> <br>
+</center>
+<br>
+ 
+</div>
+
+<script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>
+</body>
+
+</html>
